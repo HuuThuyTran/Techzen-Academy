@@ -76,7 +76,7 @@ public class Main {
         // a.
         int[] b1 = new int[length];
         for (int i = 0; i < a.length; i++) {
-            if (isPrimeNumber(a[i])) b1[i] = a[i];
+            if (isPrimeNumber(a[i]))   b1[i] = a[i];
         }
         printArray(b1, 1);
 
@@ -87,8 +87,6 @@ public class Main {
         sortDESC(a);
         printArray(a, 3);
 
-        // d.
-
         // e.
         printArray(reverseArray(a), 5);
 
@@ -97,7 +95,7 @@ public class Main {
         System.out.println("Bài 6: Kiểm tra mảng đối xứng - Kết quả: " + checkSymmetricalArray);
 
         // g.
-        System.out.println("Bài 7: Đếm cặp số đối xứng trong mảng - Kết quả: " + countPairSymmetrical(a));  
+        System.out.println("Bài 7: Đếm cặp số đối xứng trong mảng - Kết quả: " + countPairSymmetrical(a));
     }
 
     static void sortDESC(int[] arr) {
