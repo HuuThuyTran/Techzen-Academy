@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="da5ee4ce-31e0-4578-b723-19537214ce23" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../14-7-2025/lessonToday/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../14-7-2025/lessonToday/src/array/BaiTap1.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../14-7-2025/lessonToday/src/array/BaiTap2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../14-7-2025/lessonToday/src/buoi_chieu/BaiQuangMinh.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../14-7-2025/lessonToday/src/buoi_chieu/Main2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../16-7-2025/untitled/src/bai_tap_buoi_sang/BuoiSang.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../14-7-2025/lessonToday/.idea/material_theme_project_new.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../14-7-2025/lessonToday/.idea/material_theme_project_new.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../14-7-2025/lessonToday/src/buoi_chieu/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../14-7-2025/lessonToday/src/buoi_chieu/Main.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "HuuThuyTran"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/HuuThuyTran/Techzen-Academy.git",
+    "accountId": "3af26c27-c158-4148-be25-30c8e93dbbe8"
+  }
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 7
+}]]></component>
+  <component name="ProjectId" id="302HxhNnWoLtAlh9EEDdSugU2DS" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "E:/Techzen Academy/lessons_code/18-06-2025"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="da5ee4ce-31e0-4578-b723-19537214ce23" name="Changes" comment="" />
+      <created>1752818996003</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1752818996003</updated>
+    </task>
+    <servers />
+  </component>
+</project>
