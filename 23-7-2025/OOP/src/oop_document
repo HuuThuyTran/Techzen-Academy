@@ -1,0 +1,32 @@
+OOP: là 1 pp, kỹ thuật giúp ánh xạ các đối tượng trong thế giới thực vào trong lập trình
+có 4 tính chất:
+1. Encapsulation
+2. Inheritance
+3. Polymorphism
+4. Abstraction
+
+OOP:
+dựa trên các đối tượng và lớp
+tạp trung vào CTDL
+hỗ trơ kế thừa, đa hình
+thường dễ dàng bảo trì và tái sử dụng
+
+Class:
+là bản biển kế blueprint định nghĩa ra các thuộc tính và hành vi chung của tất cả các đối tượng cùng loại
+sử dụng từ khóa class để khai báo class
+chỉ đc khai báo một lần duy nhất (trong cùng package)
+
+Object:
+instance(thể hiện) của 1 class
+đc tạo ra bằng từ khóa new
+có thể đc tạo nhiều lần
+
+Class là đối tương chung
+Object là đối tượng riêng
+
+
+## Practice
+Class: Student
+States: name, age, hobby
+Behavior: eating, drinking, running
+
