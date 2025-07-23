@@ -27,6 +27,7 @@ public class Main {
         int y2 = sc.nextInt();
         M.input(x2, y2);
 
+        // Tính khoảng cách của 2 điểm I, M
         double distance = planeOXY.distanceBetweenTwoPoints(I, M);
         System.out.println("Khoảng cách giữa hai điểm I, M là: " + distance);
     }
