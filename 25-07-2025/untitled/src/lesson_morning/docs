@@ -1,0 +1,34 @@
+constructor: là phương thức đặc biệt đc sử dụng khi khởi tạo đối tượng
+có 2 loại: constructor không tham số và constructor có tham số
+trùng tên với class
+trong class có thể có nhiều constructor nhưng phải khác nhau về tham số
+trong class mình ko khai báo constructor thì mặc định sẽ có 1 constructor không tham số
+
+
+tính đóng gói:
+la ky thuat che dau thong tin doi tuong, ko phep thay doi truc tiep gia tri thuoc tinh va phuong thuc
+để đạt tinh dong goi:
+- access modifier: private, protected, default
+- methods: getter, setter
+
+
+static:
+là từ khóa dùng để khai báo thuộc tính hoặc phương thức thuộc về class
+truy xuất thành phần static thông qua tên class hoặc thông qua đối tượng
+
+mục đích:
+- định nghĩa thuộc tính, phương thức chung cho toàn bộ đối tượng của class
+- tạo ra các lớp tiện ích
+- tiết kiệm bộ nhớ
+
+* Ràng buộc khi sử dụng static:
+
+phương thức static:
+- chi co the goi phuong thuc va thuoc tinh static
+- khong the goi phuong thuc va thuoc tinh non-static
+- khong the su dung tu khoa this hoac super
+
+phuong thuc non-static:
+- co the goi phuong thuc va thuoc tinh static va non-static
+
+có thể khởi tạo giá trị biến static thông qua khối static
