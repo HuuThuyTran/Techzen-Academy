@@ -40,11 +40,6 @@ public class OldPhone extends Phone implements Promotion {
         batteryStatus = sc.nextInt();
     }
 
-    @Override
-    public void update(Scanner sc) {
-        input(sc);
-
-    }
 
     @Override
     public void promote(double percent) {
