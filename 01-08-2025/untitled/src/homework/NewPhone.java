@@ -38,11 +38,4 @@ public class NewPhone extends Phone {
         System.out.print("Nhập số lượng: ");
         quality = sc.nextInt();
     }
-
-    @Override
-    public void update(Scanner sc) {
-
-    }
-
-
 }
