@@ -1,4 +1,4 @@
-package buoi_5.chieu;
+package chieu;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

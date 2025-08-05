@@ -1,4 +1,4 @@
-package buoi_5.chieu;
+package chieu;
 
 import java.util.ArrayList;
 import java.util.Scanner;
