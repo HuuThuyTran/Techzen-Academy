@@ -38,4 +38,9 @@ public class NewPhone extends Phone {
         System.out.print("Nhập số lượng: ");
         quality = sc.nextInt();
     }
+
+    @Override
+    public double totalPrice() {
+        return this.getPrice() * this.getQuality();
+    }
 }

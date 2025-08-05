@@ -103,4 +103,5 @@ public abstract class Phone {
     public abstract String generateId();
     public abstract void displayInfo();
     public abstract void input(Scanner sc);
+    public abstract double totalPrice();
 }

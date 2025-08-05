@@ -507,7 +507,7 @@ public class PhoneManager {
     public void viewTotal() {
         double totalPrice = 0;
         for (Phone phone : phones) {
-            totalPrice += phone.getPrice();
+            totalPrice += phone.totalPrice();
         }
         System.out.println("Tổng giá tất cả điện thoại: " + String.format("%,.0f", totalPrice) + " VNĐ\n");
     }
