@@ -1,122 +1,175 @@
 package homework;
 
 public class MyLinkedList {
-//    Có bao nhiêu loại liên kết:
-//    1. liên kết đơn
-//    2. liên kết đôi
-//    3. liên kết vòng
-    private static class Node {
-        private int data;
-        private Node next;
+    private class Node {
+        int data;
+        Node next;
 
-        public Node() {}
-
-        public Node(int data) {
+        Node(int data) {
             this.data = data;
         }
     }
 
     private Node head;
-    private Node tail;
-    private int size;
+    private int size = 0;
 
-    public void addFirst(int data) {
-        Node newNode = new Node(data);
+    // 1. addFirst(int element)
+    public void addFirst(int element) {
+        Node newNode = new Node(element);
+        newNode.next = head;
+        head = newNode;
+        size++;
+    }
+
+    // 3. addLast(int element)
+    public void addLast(int element) {
+        Node newNode = new Node(element);
         if (head == null) {
             head = newNode;
-            tail = newNode;
         } else {
-            newNode.next = head;
-            head = newNode;
+            Node p = head;
+            while (p.next != null) {
+                p = p.next;
+            }
+            p.next = newNode;
         }
         size++;
     }
 
-    public void addLast(int data) {
-        if (head == null) {
-            addFirst(data);
-        } else {
-            Node newNode = new Node(data);
-            tail.next = newNode;
-            tail = newNode;
-            size++;
-        }
-    }
-
-    public void add(int index, int data) {
+    // 4. add(int index, int element)
+    public void add(int index, int element) {
         if (index < 0 || index > size) {
-            System.out.println("Lỗi: Ngoài phạm vi!");
-        } else if (index == 0) {
-            addFirst(data);
-        } else if (index == size) {
-            addLast(data);
-        } else {
-            Node currrent = head;
-            for (int i = 1; i < index; i++) {
-                currrent = currrent.next;
-            }
-
-            Node newNode = new Node(data);
-            newNode.next = currrent.next;
-            currrent.next = newNode;
-            size++;
+            throw new IndexOutOfBoundsException("Invalid index");
         }
+        if (index == 0) {
+            addFirst(element);
+            return;
+        }
+        Node newNode = new Node(element);
+        Node p = head;
+        for (int i = 0; i < index - 1; i++) {
+            p = p.next;
+        }
+        newNode.next = p.next;
+        p.next = newNode;
+        size++;
     }
 
-    public Integer removeFirst() {
-        if (head == null) {
-            return null;
-        }
-
-        if (size == 1) {
-            head = null;
-            tail = null;
-        }
-
-        Node temp = head;
+    // 5. removeFirst()
+    public void removeFirst() {
+        if (head == null) return;
         head = head.next;
         size--;
-        return temp.data;
     }
 
-    public Integer removeLast() {
-        if (head == null) {
-            return null;
-        }
-
-        if (size == 1) {
+    // 6. removeLast()
+    public void removeLast() {
+        if (head == null) return;
+        if (head.next == null) {
             head = null;
-            tail = null;
+        } else {
+            Node p = head;
+            while (p.next.next != null) {
+                p = p.next;
+            }
+            p.next = null;
         }
-
-        Node temp = head;
-        while (temp.next != tail) {
-            temp = temp.next;
-        }
-
-        int data = tail.data;
-        tail = temp;
-        tail.next = null;
-
         size--;
-        return data;
     }
 
-    
-    public boolean search(int data) {
-        Node current = new Node();
-        return current.data == data;
+    // 7. remove(int index)
+    public void remove(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Invalid index");
+        }
+        if (index == 0) {
+            removeFirst();
+            return;
+        }
+        Node p = head;
+        for (int i = 0; i < index - 1; i++) {
+            p = p.next;
+        }
+        p.next = p.next.next;
+        size--;
     }
-    
+
+    // 8. getFirst()
+    public int getFirst() {
+        if (head == null) throw new IllegalStateException("Empty list");
+        return head.data;
+    }
+
+    // 9. getLast()
+    public int getLast() {
+        if (head == null) throw new IllegalStateException("Empty list");
+        Node p = head;
+        while (p.next != null) {
+            p = p.next;
+        }
+        return p.data;
+    }
+
+    // 10. get(int index)
+    public int get(int index) {
+        if (index < 0 || index >= size) throw new IndexOutOfBoundsException("Invalid index");
+        Node p = head;
+        for (int i = 0; i < index; i++) {
+            p = p.next;
+        }
+        return p.data;
+    }
+
+    // 11. set(int index, int element)
+    public void set(int index, int element) {
+        if (index < 0 || index >= size) throw new IndexOutOfBoundsException("Invalid index");
+        Node p = head;
+        for (int i = 0; i < index; i++) {
+            p = p.next;
+        }
+        p.data = element;
+    }
+
+    // 12. indexOf(int element)
+    public int indexOf(int element) {
+        Node p = head;
+        int index = 0;
+        while (p != null) {
+            if (p.data == element) return index;
+            p = p.next;
+            index++;
+        }
+        return -1;
+    }
+
+    // 13. lastIndexOf(int element)
+    public int lastIndexOf(int element) {
+        Node p = head;
+        int index = 0;
+        int lastIndex = -1;
+        while (p != null) {
+            if (p.data == element) {
+                lastIndex = index;
+            }
+            p = p.next;
+            index++;
+        }
+        return lastIndex;
+    }
+
+    // 2. toString()
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        Node temp = head;
-        for (int i = 0; i < size; i++) {
-            stringBuilder.append(temp.data).append("\t");
-            temp = temp.next;
+        StringBuilder sb = new StringBuilder("[");
+        Node p = head;
+        while (p != null) {
+            sb.append(p.data);
+            if (p.next != null) sb.append(", ");
+            p = p.next;
         }
-        return stringBuilder.toString();
+        sb.append("]");
+        return sb.toString();
     }
 }
+
 
