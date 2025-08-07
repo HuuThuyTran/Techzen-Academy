@@ -727,23 +727,18 @@ public class Main {
             }
         }
 
-        Iterator<Schedule> i = schedules.iterator();
         boolean found = false;
-
-        while (i.hasNext()) {
-            Schedule s = i.next();
+        for (Schedule s : schedules) {
             if (s.getDay() != null && s.getDay().equals(dateToDelete)) {
-                i.remove();
+                schedules.remove(s);
                 found = true;
             }
         }
-
         if (found) {
             System.out.println("Đã xóa lịch có ngày " + keyword);
         } else {
             System.out.println("Không tìm thấy lịch có ngày " + keyword);
-        }
-    }
+        }}
 
     //15. Hiển thị lịch dạy - Minh
     private static void displaySchedule() {
@@ -765,7 +760,8 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         initializeSampleData();
         int choice;
         while (true) {
