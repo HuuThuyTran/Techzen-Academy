@@ -70,7 +70,7 @@ public class Main {
                         }
                     }
                     case 3 -> taskManager.pollFromQueue();
-                    case 4 -> System.out.println("Queue " + (taskManager.isStackEmpty() ? "rỗng" : "không rỗng"));
+                    case 4 -> System.out.println("Queue " + (taskManager.isQueueEmpty() ? "rỗng" : "không rỗng"));
                     case 5 ->
                             System.out.println("Task có độ ưu tiên cao nhất: " + taskManager.findTaskHighestPriority());
                     case 6 -> {
