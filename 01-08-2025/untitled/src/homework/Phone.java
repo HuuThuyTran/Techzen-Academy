@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-public abstract class Phone {
+public abstract class Phone implements Comparable<Phone>  {
     private String id;
     private String name;
     private double price;
@@ -97,6 +97,13 @@ public abstract class Phone {
 
         System.out.print("Nhập hãng sản xuất: ");
         brand = sc.nextLine();
+    }
+
+    // Hàm compareTo()
+    @Override
+    public int compareTo(Phone other) {
+        // Sắp xếp tăng dần theo giá
+        return Double.compare(this.price, other.price);
     }
 
     // Hàm abstract

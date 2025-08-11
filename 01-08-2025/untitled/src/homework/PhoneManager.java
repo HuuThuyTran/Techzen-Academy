@@ -30,7 +30,16 @@ public class PhoneManager {
     // Hàm xem menu chính của chương trình
     public void displayMenu() {
         while (true) {
-            System.out.println("======== CHƯƠNG TRÌNH QUẢN LÝ ĐIỆN THOẠI ========\n" + "1. Xem danh sách điện thoại\n" + "2. Thêm mới\n" + "3. Cập nhật\n" + "4. Xóa\n" + "5. Sắp xếp theo giá\n" + "6. Tìm kiếm\n" + "7. Tính tổng tiền\n" + "8. Giảm giá cho điện thoại cũ\n" + "9. Thoát chương trình");
+            System.out.println("======== CHƯƠNG TRÌNH QUẢN LÝ ĐIỆN THOẠI ========\n" +
+                    "1. Xem danh sách điện thoại\n" +
+                    "2. Thêm mới\n" +
+                    "3. Cập nhật\n" +
+                    "4. Xóa\n" +
+                    "5. Sắp xếp theo giá\n" +
+                    "6. Tìm kiếm\n" +
+                    "7. Tính tổng tiền\n" +
+                    "8. Giảm giá cho điện thoại cũ\n" +
+                    "9. Thoát chương trình");
             System.out.print("Chọn chức năng từ (1-9): ");
             choice = getValidChoice(1, 9);
 
@@ -355,8 +364,8 @@ public class PhoneManager {
             choice = getValidChoice(1, 3);
 
             switch (choice) {
-                case 1 -> sortByPriceAscending();
-                case 2 -> sortByPriceDescending();
+                case 1 -> sortByPrice(true);
+                case 2 -> sortByPrice(false);
                 case 3 -> {
                     System.out.println("Đã quay về menu chính! \n");
                     return;
@@ -365,37 +374,58 @@ public class PhoneManager {
         }
     }
 
-    // a. Hàm sắp xếp giá tiền điện thoại tăng dần
-    private void sortByPriceAscending() {
-        // Tạo bản sao của phones là sortedPhones
+//    // a. Hàm sắp xếp giá tiền điện thoại tăng dần
+//    private void sortByPriceAscending() {
+//        // Tạo bản sao của phones là sortedPhones
+//        ArrayList<Phone> sortedPhones = new ArrayList<>(phones);
+//
+//        // Đi sắp xếp tăng dần theo giá tiền
+//        // sortedPhones.sort(Comparator.comparingDouble(Phone::getPrice));
+//        sortedPhones.sort((p1, p2) -> Double.compare(p1.getPrice(), p2.getPrice()));
+//
+//        // Rồi in thông tin đã sắp xếp ra
+//        System.out.println("Đã sắp xếp theo giá tăng dần!");
+//        for (Phone phone : sortedPhones) {
+//            phone.displayInfo();
+//        }
+//    }
+//
+//    // b. Hàm sắp xếp giá tiền điện thoại giảm dần
+//    private void sortByPriceDescending() {
+//        // Tạo bản sao của phones là sortedPhones
+//        ArrayList<Phone> sortedPhones = new ArrayList<>(phones);
+//
+//        // Đi sắp xếp tăng dần theo giá tiền
+//        // sortedPhones.sort(Comparator.comparingDouble(Phone::getPrice));
+//        sortedPhones.sort((p1, p2) -> Double.compare(p2.getPrice(), p1.getPrice()));
+//
+//        // Rồi in thông tin đã sắp xếp ra
+//        System.out.println("Đã sắp xếp theo giá giảm dần!");
+//        for (Phone phone : sortedPhones) {
+//            phone.displayInfo();
+//        }
+//    }
+
+    // Hàm sắp xếp giá tiền điện thoại
+    private void sortByPrice(boolean isAscending) {
+        // Tạo bản sao của phones
         ArrayList<Phone> sortedPhones = new ArrayList<>(phones);
 
-        // Đi sắp xếp tăng dần theo giá tiền
-        // sortedPhones.sort(Comparator.comparingDouble(Phone::getPrice));
-        sortedPhones.sort((p1, p2) -> Double.compare(p1.getPrice(), p2.getPrice()));
+        // Chọn cách sắp xếp
+        if (isAscending) {
+            sortedPhones.sort(Comparator.comparingDouble(Phone::getPrice)); // tăng dần
+            System.out.println("Đã sắp xếp theo giá tăng dần!");
+        } else {
+            sortedPhones.sort(Comparator.comparingDouble(Phone::getPrice).reversed()); // giảm dần
+            System.out.println("Đã sắp xếp theo giá giảm dần!");
+        }
 
-        // Rồi in thông tin đã sắp xếp ra
-        System.out.println("Đã sắp xếp theo giá tăng dần!");
+        // In kết quả
         for (Phone phone : sortedPhones) {
             phone.displayInfo();
         }
     }
 
-    // b. Hàm sắp xếp giá tiền điện thoại giảm dần
-    private void sortByPriceDescending() {
-        // Tạo bản sao của phones là sortedPhones
-        ArrayList<Phone> sortedPhones = new ArrayList<>(phones);
-
-        // Đi sắp xếp tăng dần theo giá tiền
-        // sortedPhones.sort(Comparator.comparingDouble(Phone::getPrice));
-        sortedPhones.sort((p1, p2) -> Double.compare(p2.getPrice(), p1.getPrice()));
-
-        // Rồi in thông tin đã sắp xếp ra
-        System.out.println("Đã sắp xếp theo giá giảm dần!");
-        for (Phone phone : sortedPhones) {
-            phone.displayInfo();
-        }
-    }
 
     // ------------- Bài 6: Hàm xem menu tìm kiếm -------------
     // *. Hàm xem menu tìm kiếm
