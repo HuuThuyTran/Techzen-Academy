@@ -1,5 +1,8 @@
 package chieu;
 
+import chieu.exception.InvalidAgeException;
+import chieu.exception.InvalidEmailException;
+
 import java.util.Scanner;
 
 public class StudentBE extends Student {

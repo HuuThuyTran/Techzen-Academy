@@ -2,9 +2,11 @@ package homework;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public abstract class Phone implements Comparable<Phone>  {
+public abstract class Phone implements Comparable<Phone> {
     private String id;
     private String name;
     private double price;
@@ -82,18 +84,28 @@ public abstract class Phone implements Comparable<Phone>  {
         System.out.print("Nhập tên điện thoại: ");
         name = sc.nextLine();
 
-        System.out.print("Nhập giá bán: ");
-        price = sc.nextDouble();
-        sc.nextLine();
+        try {
+            System.out.print("Nhập giá bán: ");
+            price = sc.nextDouble();
+        } catch (InputMismatchException e) {
+            System.out.println("Giá bán phải là số!");
+            sc.nextLine(); // clear buffer
+        }
 
-        System.out.print("Nhập thời gian bảo hành (dd/MM/yyyy): ");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String warrantyStr = sc.nextLine();
-        warrantyDate = LocalDate.parse(warrantyStr, formatter);
-        sc.nextLine();
+        try {
+            System.out.print("Nhập thời gian bảo hành (dd/MM/yyyy): ");
+            String warrantyStr = sc.nextLine();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            warrantyDate = LocalDate.parse(warrantyStr, formatter);
+        } catch (DateTimeParseException e) {
+            System.out.println("❌ Định dạng ngày không hợp lệ! (dd/MM/yyyy)");
+        }
 
-        System.out.print("Nhập hệ điều hành (Android/iOS): ");
-        os = sc.nextLine();
+        do {
+            System.out.print("Nhập hệ điều hành (Android/iOS): ");
+            os = sc.nextLine().trim();
+        } while (!os.equalsIgnoreCase("Android") && !os.equalsIgnoreCase("iOS"));
+
 
         System.out.print("Nhập hãng sản xuất: ");
         brand = sc.nextLine();
@@ -108,7 +120,10 @@ public abstract class Phone implements Comparable<Phone>  {
 
     // Hàm abstract
     public abstract String generateId();
+
     public abstract void displayInfo();
+
     public abstract void input(Scanner sc);
+
     public abstract double totalPrice();
 }

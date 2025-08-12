@@ -1,9 +1,15 @@
 package chieu;
 
+import chieu.exception.InvalidAgeException;
+import chieu.exception.InvalidEmailException;
+
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Lecturer extends Teacher {
     private String subject;
+    private Set<Schedule> schedules = new HashSet<>();
 
     public Lecturer() {
     }
@@ -19,6 +25,14 @@ public class Lecturer extends Teacher {
 
     public void setSubject(String subject) {
         this.subject = subject;
+    }
+
+    public Set<Schedule> getSchedules() {
+        return schedules;
+    }
+
+    public void setSchedules(Set<Schedule> schedules) {
+        this.schedules = schedules;
     }
 
     @Override

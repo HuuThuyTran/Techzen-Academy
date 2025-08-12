@@ -1,5 +1,9 @@
 package chieu;
 
+import chieu.exception.InvalidAgeException;
+import chieu.exception.InvalidEmailException;
+import chieu.exception.NullOrEmptyException;
+
 import java.util.Scanner;
 
 public abstract class Person {
@@ -21,74 +25,94 @@ public abstract class Person {
     public void input() {
         Scanner sc = new Scanner(System.in);
 
+        // Nhập tên
         while (true) {
-            System.out.print("Nhập tên: ");
-            this.fullName = sc.nextLine().trim();
-            if (this.fullName.matches("[a-zA-ZÀ-Ỹà-ỹ\\s]+")) {
-                break;
-            } else {
-                System.out.println("Tên không hợp lệ! Không chứa số hoặc ký tự đặc biệt.\n");
-            }
-        }
+            try {
+                System.out.print("Nhập tên: ");
+                this.fullName = sc.nextLine().trim();
 
-        while (true) {
-            System.out.print("Nhập tuổi: ");
-            if (sc.hasNextInt()) {
-                this.age = sc.nextInt();
-                if (this.age < 0) {
-                    System.out.println("Tuổi không hợp lệ! Phải >= 0.\n");
+                if (this.fullName.isEmpty()) {
+                    throw new NullOrEmptyException("Tên không được bỏ trống!");
+                }
+
+                if (!this.fullName.matches("[a-zA-ZÀ-Ỹà-ỹ\\s]+")) {
+                    System.out.println("Tên không hợp lệ! Không chứa số hoặc ký tự đặc biệt.\n");
                     continue;
                 }
-                sc.nextLine();
                 break;
-            } else {
-                System.out.println("Tuổi không hợp lệ! Nhập số nguyên.\n");
-                sc.nextLine();
+
+            } catch (NullOrEmptyException e) {
+                System.out.println(e.getMessage());
             }
         }
 
+        // Nhập tuổi
         while (true) {
-            System.out.print("Nhập email: ");
-            this.email = sc.nextLine().trim();
-            if (this.email.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$")) {
+            try {
+                System.out.print("Nhập tuổi: ");
+                String input = sc.nextLine().trim();
+
+                if (input.isEmpty()) {
+                    throw new NullOrEmptyException("Tuổi không được bỏ trống!");
+                }
+                try {
+                    this.age = Integer.parseInt(input);
+                } catch (NumberFormatException e) {
+                    throw new NumberFormatException("Tuổi phải là nhập số!");
+                }
+
+                validateAge(this.age);
                 break;
-            } else {
-                System.out.println("Email không hợp lệ! Vui lòng nhập đúng định dạng (vd: ten@gmail.com).\n");
+
+            } catch (NullOrEmptyException | InvalidAgeException | NumberFormatException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        // Nhập email
+        while (true) {
+            try {
+                System.out.print("Nhập email: ");
+                this.email = sc.nextLine().trim();
+
+                if (this.email.isEmpty()) {
+                    throw new NullOrEmptyException("Email không được bỏ trống!");
+                }
+                validateEmail(this.email);
+                break;
+
+            } catch (NullOrEmptyException | InvalidEmailException e) {
+                System.out.println(e.getMessage());
             }
         }
     }
 
-    public String getId() {
-        return id;
+    // Validate tuổi
+    private void validateAge(int age) throws InvalidAgeException {
+        if (age < 18 || age > 100) {
+            throw new InvalidAgeException(age);
+        }
     }
 
-    public void setId(String id) {
-        this.id = id;
+    // Validate email
+    private void validateEmail(String email) throws InvalidEmailException {
+        if (!email.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$")) {
+            throw new InvalidEmailException("Email '" + email + "' không đúng định dạng! (vd: ten@gmail.com)");
+        }
     }
 
-    public String getFullName() {
-        return fullName;
-    }
+    // Getter / Setter
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
+    public String getFullName() { return fullName; }
+    public void setFullName(String fullName) { this.fullName = fullName; }
 
-    public int getAge() {
-        return age;
-    }
+    public int getAge() { return age; }
+    public void setAge(int age) { this.age = age; }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
     @Override
     public String toString() {

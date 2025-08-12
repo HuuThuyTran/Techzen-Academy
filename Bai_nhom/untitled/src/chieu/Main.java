@@ -1,5 +1,8 @@
 package chieu;
 
+import chieu.exception.InvalidAgeException;
+import chieu.exception.InvalidEmailException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -88,7 +91,7 @@ public class Main {
         System.out.println("5. Thoát...");
     }
 
-    private static void processAdd() {
+    private static void processAdd() throws InvalidEmailException, InvalidAgeException {
         int choice;
 
         while (true) {
@@ -136,7 +139,7 @@ public class Main {
         return true;
     }
 
-    private static <T extends Person> void addNewPerson(T person) {
+    private static <T extends Person> void addNewPerson(T person) throws InvalidEmailException, InvalidAgeException {
         do {
             person.setId(getRandomIdentify());
         } while (!checkIdentify(person.getId()));
@@ -836,8 +839,193 @@ public class Main {
         }
     }
 
+    // 20. Quản lý lịch dạy theo từng giảng viên
+    private static void managementSchedulesByLecture() {
+        ArrayList<Lecturer> lecturers = getList(Lecturer.class);
 
-    public static void main(String[] args) {
+        if (lecturers.isEmpty()) {
+            System.out.println("Hiện tại chưa có giảng viên nào!");
+            return;
+        }
+
+        // Hiển thị danh sách giảng viên
+        System.out.println("===== Danh sách giảng viên =====");
+        for (int i = 0; i < lecturers.size(); i++) {
+            System.out.println((i + 1) + ". " + lecturers.get(i).getId() + " - " + lecturers.get(i).getFullName());
+        }
+
+        System.out.print("Chọn giảng viên: ");
+        int choice;
+
+        Lecturer selectedLecturer;
+        try {
+            choice = Integer.parseInt(sc.nextLine());
+            if (choice < 1 || choice > lecturers.size()) {
+                System.out.println("Lựa chọn không hợp lệ!");
+                return;
+            }
+            selectedLecturer = lecturers.get(choice - 1);
+        } catch (NumberFormatException e) {
+            System.out.println("Vui lòng nhập số hợp lệ!");
+            return;
+        }
+
+        // Menu quản lý lịch dạy cho giảng viên đã chọn
+        while (true) {
+            System.out.println("\n===== QUẢN LÝ LỊCH DẠY - " + selectedLecturer.getFullName() + " =====");
+            System.out.println("1. Xem lịch dạy của giảng viên");
+            System.out.println("2. Thêm lịch dạy cho giảng viên");
+            System.out.println("3. Xóa lịch dạy của giảng viên");
+            System.out.println("4. Thoát");
+            System.out.print("Lựa chọn của bạn: ");
+
+            try {
+                int subChoice = Integer.parseInt(sc.nextLine());
+                switch (subChoice) {
+                    case 1:
+                        viewLecturerSchedule(selectedLecturer);
+                        break;
+                    case 2:
+                        addScheduleToLecturer(selectedLecturer);
+                        break;
+                    case 3:
+                        removeScheduleFromLecturer(selectedLecturer);
+                        break;
+                    case 4:
+                        return;
+                    default:
+                        System.out.println("Lựa chọn không hợp lệ!");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Vui lòng nhập số hợp lệ!");
+            }
+        }
+    }
+
+    // Xem lịch dạy của giảng viên
+    private static void viewLecturerSchedule(Lecturer lecturer) {
+        Set<Schedule> lecturerSchedules = lecturer.getSchedules();
+
+        if (lecturerSchedules.isEmpty()) {
+            System.out.println("Giảng viên " + lecturer.getFullName() + " chưa có lịch dạy nào.");
+            return;
+        }
+
+        System.out.println("===== LỊCH DẠY CỦA " + lecturer.getFullName().toUpperCase() + " =====");
+        int count = 1;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        for (Schedule schedule : lecturerSchedules) {
+            System.out.println("Lịch dạy thứ " + count++);
+            String dayFormatted = (schedule.getDay() != null) ? schedule.getDay().format(formatter) : "Chưa có ngày";
+            String content = (schedule.getContent() != null && !schedule.getContent().isEmpty()) ? schedule.getContent() : "Chưa có nội dung";
+
+            System.out.println("Ngày: " + dayFormatted);
+            System.out.println("Nội dung: " + content);
+            System.out.println("---------------------------");
+        }
+    }
+
+    // Thêm lịch dạy cho giảng viên
+    private static void addScheduleToLecturer(Lecturer lecturer) {
+        if (schedules.isEmpty()) {
+            System.out.println("Hiện tại chưa có lịch dạy nào trong hệ thống!");
+            System.out.println("Vui lòng tạo lịch dạy trước (chức năng 13).");
+            return;
+        }
+
+        // Hiển thị các lịch dạy chưa được gán cho giảng viên này
+        ArrayList<Schedule> availableSchedules = new ArrayList<>();
+        for (Schedule schedule : schedules) {
+            if (!lecturer.getSchedules().contains(schedule)) {
+                availableSchedules.add(schedule);
+            }
+        }
+
+        if (availableSchedules.isEmpty()) {
+            System.out.println("Tất cả lịch dạy đã được gán cho giảng viên " + lecturer.getFullName());
+            return;
+        }
+
+        System.out.println("===== DANH SÁCH LỊCH DẠY KHẢ DỤNG =====");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        for (int i = 0; i < availableSchedules.size(); i++) {
+            Schedule schedule = availableSchedules.get(i);
+            String dayFormatted = (schedule.getDay() != null) ? schedule.getDay().format(formatter) : "Chưa có ngày";
+            String content = (schedule.getContent() != null && !schedule.getContent().isEmpty()) ? schedule.getContent() : "Chưa có nội dung";
+
+            System.out.println((i + 1) + ". Ngày: " + dayFormatted + " - Nội dung: " + content);
+        }
+
+        System.out.print("Chọn lịch dạy để gán cho giảng viên (0 để thoát): ");
+        try {
+            int choice = Integer.parseInt(sc.nextLine());
+
+            if (choice == 0) {
+                return;
+            }
+
+            if (choice < 1 || choice > availableSchedules.size()) {
+                System.out.println("Lựa chọn không hợp lệ!");
+                return;
+            }
+
+            Schedule selectedSchedule = availableSchedules.get(choice - 1);
+            lecturer.getSchedules().add(selectedSchedule);
+
+            System.out.println("Đã thêm lịch dạy cho giảng viên " + lecturer.getFullName() + " thành công!");
+
+        } catch (NumberFormatException e) {
+            System.out.println("Vui lòng nhập số hợp lệ!");
+        }
+    }
+
+    // Xóa lịch dạy của giảng viên
+    private static void removeScheduleFromLecturer(Lecturer lecturer) {
+        Set<Schedule> lecturerSchedules = lecturer.getSchedules();
+
+        if (lecturerSchedules.isEmpty()) {
+            System.out.println("Giảng viên " + lecturer.getFullName() + " chưa có lịch dạy nào.");
+            return;
+        }
+
+        System.out.println("===== LỊCH DẠY CỦA " + lecturer.getFullName().toUpperCase() + " =====");
+        ArrayList<Schedule> scheduleList = new ArrayList<>(lecturerSchedules);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        for (int i = 0; i < scheduleList.size(); i++) {
+            Schedule schedule = scheduleList.get(i);
+            String dayFormatted = (schedule.getDay() != null) ? schedule.getDay().format(formatter) : "Chưa có ngày";
+            String content = (schedule.getContent() != null && !schedule.getContent().isEmpty()) ? schedule.getContent() : "Chưa có nội dung";
+
+            System.out.println((i + 1) + ". Ngày: " + dayFormatted + " - Nội dung: " + content);
+        }
+
+        System.out.print("Chọn lịch dạy để xóa (0 để thoát): ");
+        try {
+            int choice = Integer.parseInt(sc.nextLine());
+
+            if (choice == 0) {
+                return;
+            }
+
+            if (choice < 1 || choice > scheduleList.size()) {
+                System.out.println("Lựa chọn không hợp lệ!");
+                return;
+            }
+
+            Schedule scheduleToRemove = scheduleList.get(choice - 1);
+            lecturer.getSchedules().remove(scheduleToRemove);
+
+            System.out.println("Đã xóa lịch dạy khỏi giảng viên " + lecturer.getFullName() + " thành công!");
+
+        } catch (NumberFormatException e) {
+            System.out.println("Vui lòng nhập số hợp lệ!");
+        }
+    }
+
+    public static void main(String[] args) throws InvalidEmailException, InvalidAgeException {
         initializeSampleData();
         int choice;
         while (true) {
@@ -865,6 +1053,7 @@ public class Main {
                 case 17 -> checkScheduleHasDuplicateLecture();
                 case 18 -> findStudentById();
                 case 19 -> findCourseById();
+                case 20 -> managementSchedulesByLecture();
                 case 0 -> {
                     System.err.println("Kết thúc chương trình!");
                     return;
@@ -873,6 +1062,4 @@ public class Main {
             }
         }
     }
-
-
 }
